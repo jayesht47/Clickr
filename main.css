@@ -3,15 +3,6 @@
     background-color: #2a2a2e;
 }
 
-.header{
-    color: white;
-    text-align: left; 
-    /*margin-top: 25px;
-    margin-left: 25px;*/
-    font-family: 'Roboto';
-    font-size: 55px;
-}
-
 .logo{
     height: auto;
     width: 100%;
@@ -20,3 +11,76 @@
 .inline{
     display: inline;
 }
+
+.icon{
+    color: white;
+}
+
+.dashboard-icon{
+    border-width: 0px !important;
+}
+
+.userName{
+    text-align: center;
+    color: crimson;
+    font-family: 'Roboto';
+    font-size: larger;
+}
+.stdText{
+    text-align: center;
+    color: whitesmoke;
+    font-family: 'Roboto';
+    font-size: larger;
+}
+
+.score{
+    text-align: center;
+    color: crimson;
+}
+
+.txtCenter{
+    text-align: center;
+}
+
+.header{
+    margin-top: 1vh;
+}
+
+.gameBody{
+    margin: 1vh;
+    height: 80vh;
+    border: dashed;
+    border-width: 5px;
+    border-radius: 1vh;
+    border-color: crimson;
+}
+
+.MC{
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: crimson;
+    position: relative;
+    border-radius: 10px;
+}
+
+.NPC{
+    top: 60%;
+    left: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    position: relative;
+    border-radius: 6px;
+}
+
+/*
+.mcName{
+    text-align: center;
+    color: crimson;
+    font-family: 'Roboto';
+    font-size: medium;
+}
+*/
+
