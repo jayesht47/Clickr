@@ -13,8 +13,8 @@ var offsetY = "";
 var NPCArray = [];
 function init()
 {
-    offsetX = $("#gameBody").position().left + 150;
-    offsetY = $("#gameBody").position().top + 150;
+    offsetX = $("#gameBody").position().left + 15;
+    offsetY = $("#gameBody").position().top + 15;
     generateNPCs();
 }
 
@@ -55,8 +55,8 @@ function generateNPC()
 {
     var gameBodyX = $("#gameBody").position().left + 10;
     var gameBodyY = $("#gameBody").position().top + 10;
-    var gameBodyWidth = $("#gameBody").width();
-    var gameBodyHeight = $("#gameBody").height();
+    var gameBodyWidth = $("#gameBody").width() -  ($("#gameBody").width()/10);
+    var gameBodyHeight = $("#gameBody").height() -  ($("#gameBody").height()/10);
     var NPC = {
         x : 0,
         y : 0,
