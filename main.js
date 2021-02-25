@@ -14,7 +14,7 @@ var NPCArray = [];
 function init()
 {
     offsetX = $("#gameBody").position().left + 15;
-    offsetY = $("#gameBody").position().top + 15;
+    offsetY = $("#gameBody").position().top;
     generateNPCs();
 }
 
@@ -29,7 +29,8 @@ var MC = {
 
 // console.log(MC.prop);
 
-var NPC = {   
+var NPC = {
+    id : 0,   
     x : 0,
     y : 0,
     size : 0,
@@ -39,7 +40,14 @@ function generateNPCs()
 {
     for (var i = 0 ; i < 10 ; i++ )
     {
-        var NPC = generateNPC();        
+        var NPC = generateNPC(i);
+
+        while(checkOverLapBetweenAll(NPC))
+        {
+            // console.log(`Old NPC :: ${JSON.stringify(NPC)}`)
+            NPC = generateNPC(i);
+            // console.log(`New NPC :: ${JSON.stringify(NPC)}`)
+        }        
         NPCArray.push(NPC);
     }
     for (var i = 0 ; i < 10 ; i++ )
@@ -51,13 +59,14 @@ function generateNPCs()
 }
 
 
-function generateNPC()
+function generateNPC(id)
 {
     var gameBodyX = $("#gameBody").position().left + 10;
     var gameBodyY = $("#gameBody").position().top + 10;
     var gameBodyWidth = $("#gameBody").width() -  ($("#gameBody").width()/10);
     var gameBodyHeight = $("#gameBody").height() -  ($("#gameBody").height()/10);
     var NPC = {
+        id : id,
         x : 0,
         y : 0,
         size :0
@@ -88,8 +97,8 @@ function generateNPC()
 
 function updatePostion()
 {
-    MC.x = event.pageX - offsetX;
-    MC.y = event.pageY- offsetY;
+    MC.x = event.pageX - offsetX - MC.size;
+    MC.y = event.pageY- offsetY - MC.size;
     //console.info("MC Current position :: X : "+ MC.x + "Y : "+ MC.y);
     drawnCharacter('MC',MC);
 }
@@ -141,17 +150,27 @@ function detectOverlap(character1,character2,char1id,char2id)
 
     if( overlapOnxAxis && overlapOnyAxis) 
     {
-        console.info(`Overlap found between ${char1id} and ${char2id}`); 
+        // console.info(`Overlap found between ${char1id} and ${char2id}`); 
         return true;
     }
-
+    return false;
 }
 
 function checkOverLapBetweenAll(NPC)
 {
     //checking between MC and NPC
-    status = detectOverlap(MC,NPC,'Mc',i);
+    let status = "";
+    status = detectOverlap(MC,NPC,'Mc',NPC.id);
 
-    
+    if(status == true) return true;
 
+    for (curNPC of NPCArray)
+    {
+        status = detectOverlap(curNPC,NPC,curNPC.id,NPC.id);
+        if(status == true) 
+        {
+            return true
+        };
+    }
+    return status;
 }
