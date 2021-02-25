@@ -27,7 +27,7 @@ var MC = {
     size : 50
 }
 
-console.log(MC.prop);
+// console.log(MC.prop);
 
 var NPC = {   
     x : 0,
@@ -39,7 +39,7 @@ function generateNPCs()
 {
     for (var i = 0 ; i < 10 ; i++ )
     {
-        var NPC = generateNPC();
+        var NPC = generateNPC();        
         NPCArray.push(NPC);
     }
     for (var i = 0 ; i < 10 ; i++ )
@@ -71,7 +71,7 @@ function generateNPC()
     while(true)
     {
         y = Math.random() * 1000;
-        if(y < gameBodyY + gameBodyHeight) break;
+        if(y <  gameBodyHeight) break;
     }
     while(true)
     {
@@ -103,7 +103,55 @@ function drawnCharacter(characterId,character)
 
 
 
-function detectCollision()
+function detectOverlap(character1,character2,char1id,char2id)
+{  
+    // Checking for overlap by projection on axis
+
+    x1min = 0;
+    x1max = 0;
+    y1min = 0;
+    y1max = 0;
+    x2min = 0;
+    x2max = 0;
+    y2min = 0;
+    y2max = 0;
+
+    if(character1 == MC)
+    {
+        y1min = parseInt($("#MC").css("top"));
+        y1max = y1min + parseInt(character1.size);
+        x1min = parseInt($("#MC").css("left"));
+        x1max = x1min + parseInt(character1.size);
+    }
+    else
+    {
+        y1min = parseInt(character1.y);
+        y1max = y1min + parseInt(character1.size);
+        x1min = parseInt(character1.x);
+        x1max = x1min + parseInt(character1.size);
+    }
+
+    x2min = parseInt(character2.x);
+    x2max = x2min + parseInt(character2.size);
+    y2min = parseInt(character2.y);
+    y2max = y2min + parseInt(character2.size);
+
+    overlapOnxAxis = (x1max >= x2min && x2max >= x1min );
+    overlapOnyAxis = (y1max >= y2min && y2max >= y1min );
+
+    if( overlapOnxAxis && overlapOnyAxis) 
+    {
+        console.info(`Overlap found between ${char1id} and ${char2id}`); 
+        return true;
+    }
+
+}
+
+function checkOverLapBetweenAll(NPC)
 {
+    //checking between MC and NPC
+    status = detectOverlap(MC,NPC,'Mc',i);
+
+    
 
 }
