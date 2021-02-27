@@ -54,7 +54,7 @@ function generateNPCs()
     {
         htmlStructureForNPC = `<div id = "NPC${i}" class="NPC"></div>`;
         $("#gameBody").append(htmlStructureForNPC);
-        drawnCharacter("NPC"+i,NPCArray[i]);
+        drawCharacter("NPC"+i,NPCArray[i]);
     }
 }
 
@@ -100,10 +100,24 @@ function updatePostion()
     MC.x = event.pageX - offsetX - MC.size;
     MC.y = event.pageY- offsetY - MC.size;
     //console.info("MC Current position :: X : "+ MC.x + "Y : "+ MC.y);
-    drawnCharacter('MC',MC);
+    drawCharacter('MC',MC);
+    
+    // if(NPCArray != undefined) attackMC();
+
+    // if (attactNPCArray != undefined)
+    // {
+    //     for (attackNPC of attactNPCArray)
+    //     {
+    //         if(detectOverlap(MC,attackNPC,'Mc',attackNPC.id))
+    //         {
+    //             alert('Game Over');
+    //             break;
+    //         }
+    //     }
+    // }
 }
 
-function drawnCharacter(characterId,character)
+function drawCharacter(characterId,character)
 {
     $("#"+characterId).css({"top":""+character.y+"px","left":""+character.x+"px"});
     $("#"+characterId).width(character.size);
@@ -114,7 +128,7 @@ function drawnCharacter(characterId,character)
 
 function detectOverlap(character1,character2,char1id,char2id)
 {  
-    // Checking for overlap by projection on axis
+    // Checking for overlap by projection on axis method
 
     x1min = 0;
     x1max = 0;
@@ -127,10 +141,10 @@ function detectOverlap(character1,character2,char1id,char2id)
 
     if(character1 == MC)
     {
-        y1min = parseInt($("#MC").css("top"));
-        y1max = y1min + parseInt(character1.size);
-        x1min = parseInt($("#MC").css("left"));
-        x1max = x1min + parseInt(character1.size);
+        y1min = parseInt($("#MC").css("top")) - 50;
+        y1max = y1min + parseInt(character1.size + 100);
+        x1min = parseInt($("#MC").css("left")) - 50;
+        x1max = x1min + parseInt(character1.size + 100);
     }
     else
     {
@@ -173,4 +187,40 @@ function checkOverLapBetweenAll(NPC)
         };
     }
     return status;
+}
+
+function NPCMovement()
+{
+    // attactNPCArray = []
+
+    // NPCArray.forEach((curNPC)=>{
+    //     if( curNPC.size > ( MC.size + 5 ))  attactNPCArray.push(curNPC); 
+    // })
+
+    // console.info(attactNPCArray);
+
+    var gameBodyX = $("#gameBody").position().left + 10;
+    var gameBodyY = $("#gameBody").position().top + 10;
+    var gameBodyWidth = $("#gameBody").width() - ($("#gameBody").width()/10);
+    var gameBodyHeight = $("#gameBody").height() - ($("#gameBody").height()/10);
+
+    NPCArray.forEach((curNPC) => {
+
+        while(true)
+        {
+            x = Math.random() * 1000;
+            if(x < gameBodyX + gameBodyWidth) break;
+        }   
+    while(true)
+        {
+            y = Math.random() * 1000;
+            if(y <  gameBodyHeight) break;
+        }
+
+        curNPC.x = x;
+        curNPC.y = y;
+
+        drawCharacter(`NPC${curNPC.id}`,curNPC);
+    })
+
 }
